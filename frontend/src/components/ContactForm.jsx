@@ -11,7 +11,7 @@ function ContactForm({ setContacts, contacts }) {
     e.preventDefault()
     if(!name || !email) return alert("Name and Email are required")
     try {
-      const res = await axios.post("http://localhost:5000/contacts",{ name, company, email, phone, status })
+      const res = await axios.post("https://hello-book-psi.vercel.app/contacts",{ name, company, email, phone, status })
       setContacts([res.data, ...contacts])
       setName("")
       setCompany("")
