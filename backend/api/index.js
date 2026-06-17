@@ -1,5 +1,5 @@
-import app from '../server.js'
+import app from "../server.js";
 
-export default (req, res) => {
-  return app(req, res)
+export default function handler(req, res) {
+  return app(req, res);
 }

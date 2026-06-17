@@ -27,7 +27,7 @@ function ContactForm({ setContacts, contacts }) {
   }
 
   return (
-    <form className="space-y-6" autoComplete="off">
+    <form className="space-y-6" autoComplete="off" onSubmit={handleSubmit}>
       <input
         type="text"
         placeholder="Name"
@@ -68,7 +68,6 @@ function ContactForm({ setContacts, contacts }) {
       <button
         type="submit"
         className="text-white px-4 py-4 rounded hover:bg-[#001a52] bg-[#00277a] transition w-full mt-[10px] cursor-pointer"
-        onClick={handleSubmit}
       >
         Submit
       </button>
