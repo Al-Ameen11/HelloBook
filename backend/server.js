@@ -18,6 +18,11 @@ app.use('/contacts', contactRoutes)
 mongoose.connect(process.env.MONGODB_URL)
 .then(()=> {
   console.log("MongoDb connected")
-  app.listen(process.env.PORT,()=> console.log(`server running on port ${process.env.PORT}`))
+  if (!process.env.VERCEL) {
+    const port = process.env.PORT || 5000
+    app.listen(port,()=> console.log(`server running on port ${port}`))
+  }
 })
 .catch((err)=> console.log(err))
+
+export default app
