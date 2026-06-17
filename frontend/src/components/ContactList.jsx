@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+
 function ContactList({ contacts, setContacts }) {
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState("");
@@ -11,7 +13,7 @@ function ContactList({ contacts, setContacts }) {
       setLoading(true);
       try {
         const query = `?status=${filter}&search=${search}`;
-        const res = await axios.get(`http://localhost:5000/contacts${query}`);
+        const res = await axios.get(`${API_URL}/contacts${query}`);
         setContacts(res.data);
         await new Promise((resolve) => setTimeout(resolve, 1000));
       } catch (err) {
@@ -25,7 +27,7 @@ function ContactList({ contacts, setContacts }) {
 
   const handleStatusChange = async (id, status) => {
     try {
-      await axios.put(`http://localhost:5000/contacts/${id}`,{ status });
+      await axios.put(`${API_URL}/contacts/${id}`,{ status });
       setContacts((prev) =>
         prev.map((c) => (c._id === id ? { ...c, status } : c))
       );
@@ -37,7 +39,7 @@ function ContactList({ contacts, setContacts }) {
   const handleDelete = async (id) => {
     if (confirm("are you sure you want to delete")) {
       try {
-        await axios.delete(`http://localhost:5000/contacts/${id}`);
+        await axios.delete(`${API_URL}/contacts/${id}`);
         setContacts((prev) => prev.filter((c) => c._id !== id));
       } catch (err) {
         console.log(err);
