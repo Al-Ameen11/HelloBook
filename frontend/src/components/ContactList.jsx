@@ -27,7 +27,7 @@ function ContactList({ contacts, setContacts }) {
 
   const handleStatusChange = async (id, status) => {
     try {
-      await axios.put(`${API_URL}/contacts/${id}`,{ status });
+      await axios.put(`${API_URL}/contacts/${id}`, { status });
       setContacts((prev) =>
         prev.map((c) => (c._id === id ? { ...c, status } : c))
       );
@@ -37,7 +37,7 @@ function ContactList({ contacts, setContacts }) {
   };
 
   const handleDelete = async (id) => {
-    if (confirm("are you sure you want to delete")) {
+    if (confirm("Are you sure you want to delete this contact?")) {
       try {
         await axios.delete(`${API_URL}/contacts/${id}`);
         setContacts((prev) => prev.filter((c) => c._id !== id));
@@ -46,6 +46,7 @@ function ContactList({ contacts, setContacts }) {
       }
     }
   };
+
   return (
     <>
       <div className="flex gap-10">
@@ -61,7 +62,7 @@ function ContactList({ contacts, setContacts }) {
         </select>
         <input
           type="text"
-          placeholder="Search by or company"
+          placeholder="Search by name or company"
           className="p-3 rounded w-full bg-[#eff4ff] outline-0"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
@@ -89,19 +90,19 @@ function ContactList({ contacts, setContacts }) {
           <div className="grid grid-cols-2 gap-10">
             {contacts.map((c) => (
               <div key={c._id}>
-                <div className="bg-[#eff4ff] shadow-md rounded p-4 flex flex-col justify-between hover:shadow-lf transition">
+                <div className="bg-[#eff4ff] shadow-md rounded p-4 flex flex-col justify-between hover:shadow-lg transition">
                   <div>
                     <div className="text-gray-500 text-sm flex gap-2 mb-5 mt-0 justify-between items-center">
                       <h3 className="font-bold text-2xl text-[#00277a]">
                         {c.name}
                       </h3>
-                      <p className="text-[#00277a] p-2 ' px-4 rounded bg-[#d3e6ff] font-medium">
+                      <p className="text-[#00277a] p-2 px-4 rounded bg-[#d3e6ff] font-medium">
                         {c.company}
                       </p>
                     </div>
                     <div className="text-[16px] flex gap-2 my-3 justify-between border-2 border-[#00277a21] px-3 p-3 rounded">
-                      <p>📧 {c.email}</p>
-                      <p>📞 {c.phone}</p>
+                      <p>Email: {c.email}</p>
+                      <p>Phone: {c.phone}</p>
                     </div>
                     <div className="flex justify-between items-center mt-4">
                       <select
@@ -114,7 +115,10 @@ function ContactList({ contacts, setContacts }) {
                         <option value="Follow-up">Follow-up</option>
                         <option value="Closed">Closed</option>
                       </select>
-                      <button onClick={()=>handleDelete(c._id)} className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition cursor-pointer">
+                      <button
+                        onClick={() => handleDelete(c._id)}
+                        className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition cursor-pointer"
+                      >
                         Delete
                       </button>
                     </div>
