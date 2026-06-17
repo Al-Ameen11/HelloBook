@@ -8,10 +8,6 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 
-app.get('/', (req, res) => {
-  res.json({ message: 'HelloBook backend is running' })
-})
-
 // Import Routes
 import contactRoutes from './routes/routes.contact.js'
 
